@@ -32,10 +32,12 @@ namespace WebApi1
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+
             services.AddDbContext<ApplicationContext>(options =>
-options.UseSqlServer(
-    Configuration.GetConnectionString("ApplicationConnection"),
-    b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
+                    options.UseSqlServer(
+                    Configuration.GetConnectionString("ApplicationConnection"),
+                     b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
             #region Repositories
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IDeveloperRepository, DeveloperRepository>();
@@ -54,12 +56,17 @@ options.UseSqlServer(
 
             app.UseRouting();
 
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/", async context =>
+            //    {
+            //        await context.Response.WriteAsync("Hello World!");
+            //    });
+            //});
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }

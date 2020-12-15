@@ -14,7 +14,7 @@ namespace DataAccess.EFCore.Repositories
         }
         public IEnumerable<Developer> GetPopularDevelopers(int count)
         {
-            return _context.Developers.OrderByDescending(d => d.Followers).Take(count).ToList();
+            return _context.Developers.OrderByDescending(d => d.Followers).ToList();
         }
     }
 }

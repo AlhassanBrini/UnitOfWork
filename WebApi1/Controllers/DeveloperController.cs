@@ -26,16 +26,12 @@ namespace WebApi1.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddDeveloperAndProject()
+        public IActionResult AddDeveloper([FromBody]Developer developer)
         {
-            var developer = new Developer
-            {
-                Followers = 10,
-                Name = "Alhassan"
-            };
+            
             var project = new Project
             {
-                Name = "EasyDoctor"
+                
             };
             _unitOfWork.Developers.Add(developer);
             _unitOfWork.Projects.Add(project);
